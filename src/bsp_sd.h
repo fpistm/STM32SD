@@ -59,8 +59,9 @@ Please update the core or install previous library version."
 #endif
 
 /* SD Card information structure */
-
 #define BSP_SD_CardInfo HAL_SD_CardInfoTypeDef
+#define BSP_SD_CardCSD HAL_SD_CardCSDTypeDef
+#define BSP_SD_CardCID  HAL_SD_CardCIDTypeDef
 /* For backward compatibility */
 #define SD_CardInfo BSP_SD_CardInfo
 /* SD status structure definition */
@@ -179,6 +180,8 @@ uint8_t BSP_SD_ReadBlocks(uint32_t *pData, uint32_t ReadAddr, uint32_t NumOfBloc
 uint8_t BSP_SD_WriteBlocks(uint32_t *pData, uint32_t WriteAddr, uint32_t NumOfBlocks, uint32_t Timeout);
 uint8_t BSP_SD_Erase(uint64_t StartAddr, uint64_t EndAddr);
 uint8_t BSP_SD_GetCardState(void);
+bool    BSP_SD_GetCardCID(HAL_SD_CardCIDTypeDef *CardCID);
+bool    BSP_SD_GetCardCSD(HAL_SD_CardCSDTypeDef *CardCSD);
 bool    BSP_SD_GetCardInfo(HAL_SD_CardInfoTypeDef *CardInfo);
 uint8_t BSP_SD_IsDetected(void);
 

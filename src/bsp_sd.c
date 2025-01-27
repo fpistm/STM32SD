@@ -715,6 +715,31 @@ uint8_t BSP_SD_GetCardState(void)
 }
 
 /**
+  * @brief  Get SD Card IDentification (CID)
+  *         The CID contains card identification
+  *         information such as Manufacturer ID, Product name, Product serial
+  *         number and Manufacturing date.
+  * @param  CardCID: Pointer to HAL_SD_CardCIDTypeDef structure
+  * @retval boolean true if successful, false otherwise
+  */
+bool BSP_SD_GetCardCID(HAL_SD_CardCIDTypeDef *CardCID)
+{
+  return (HAL_SD_GetCardCID(&uSdHandle, CardCID) == HAL_OK);
+}
+
+/**
+  * @brief  Get SD Card-Specific Data (CSD)
+  *         The CSD contains Card-Specific Data that
+  *         provides information regarding access to the card's contents.
+  * @param  CardCSD: Pointer to HAL_SD_CardCSDTypeDef structure
+  * @retval boolean true if successful, false otherwise
+  */
+bool BSP_SD_GetCardCSD(HAL_SD_CardCSDTypeDef *CardCSD)
+{
+  return (HAL_SD_GetCardCSD(&uSdHandle, CardCSD) == HAL_OK);
+}
+
+/**
   * @brief  Get SD information about specific SD card.
   * @param  CardInfo: Pointer to HAL_SD_CardInfoTypedef structure
   * @retval boolean true if successful, false otherwise

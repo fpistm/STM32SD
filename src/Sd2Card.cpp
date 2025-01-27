@@ -77,6 +77,16 @@ bool Sd2Card::init(uint32_t detect, uint32_t level)
   if (status == true) {
     if (BSP_SD_Init() == MSD_OK) {
       status = BSP_SD_GetCardInfo(&_SdCardInfo);
+      if (status == true) {
+        status = BSP_SD_GetCardCID(&_SdCardCID);
+        if (status == true) {
+          status = BSP_SD_GetCardCSD(&_SdCardCSD);
+        } else {
+          status = false;
+        }
+      } else {
+        status = false;
+      }
     } else {
       status = false;
     }

@@ -38,6 +38,15 @@ void setup() {
 
   Serial.println("A card is present.");
 
+  // print card identification (CID)
+  Serial.println("Card IDentification (CID): ");
+  Serial.printf("Manufacturer ID: 0x%02X\n", card.manufacturerID());
+  Serial.printf("OEM ID: %s\n", card.oemID());
+  Serial.printf("Product: %s\n", card.productName());
+  Serial.printf("Revision: %u.%u\n", card.productMajorRevision(), card.productMinorRevision());
+  Serial.printf("Serial number: 0x%X\n", card.serialNumber());
+  Serial.printf("Manufacturing date: %02u/%u\n", card.manufacturingMonth(), card.manufacturingYear());
+
   // print the type of card
   Serial.print("\nCard type: ");
   switch (card.type()) {

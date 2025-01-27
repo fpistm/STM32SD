@@ -120,10 +120,77 @@ class Sd2Card {
       SD_PinNames.pin_d123dir = d123dir;
     };
 #endif
+    /**
+       Read a cards CID register. The CID contains card identification
+       information such as Manufacturer ID, Product name, Product serial
+       number and Manufacturing date. */
+    bool readCID(BSP_SD_CardCID *cid)
+    {
+      return BSP_SD_GetCardCID(cid);
+    }
+    /**
+       Read a cards CSD register. The CSD contains Card-Specific Data that
+       provides information regarding access to the card's contents. */
+    bool readCSD(BSP_SD_CardCSD *csd)
+    {
+      return BSP_SD_GetCardCSD(csd);
+    }
+
     /** Return the card type: SD V1, SD V2 or SDHC */
     uint8_t type(void) const;
 
+    uint8_t manufacturerID(void) const
+    {
+      return _SdCardCID.ManufacturerID;
+    };
+    char *oemID(void)
+    {
+      _oemID[0] = (char)(_SdCardCID.OEM_AppliID >> 8);
+      _oemID[1] = (char)(_SdCardCID.OEM_AppliID & 0xFF);
+      _oemID[2] = '\0';
+      return _oemID;
+    };
+    uint8_t productMajorRevision(void) const
+    {
+      return _SdCardCID.ProdRev >> 4;
+    };
+    uint8_t productMinorRevision(void) const
+    {
+      return _SdCardCID.ProdRev & 0xF;
+    };
+    uint32_t serialNumber(void) const
+    {
+      return _SdCardCID.ProdSN;
+    };
+    uint16_t manufacturingMonth(void) const
+    {
+      return (_SdCardCID.ManufactDate & 0xF);
+    };
+    uint16_t manufacturingYear(void) const
+    {
+      // Year is from 2000 +  Year high bits + Year low bits
+      return (2000
+              + (_SdCardCID.ManufactDate & 0xF0 >> 4)
+              + (_SdCardCID.ManufactDate & 0xF00 >> 8)
+             );
+    };
+    char *productName(void)
+    {
+      // ProdName1 is big endian and need to be swapped
+      _prodName[3] = (char)(_SdCardCID.ProdName1 & 0xFF);
+      _prodName[2] = (char)((_SdCardCID.ProdName1 & 0xFF00) >> 8);
+      _prodName[1] = (char)((_SdCardCID.ProdName1 & 0xFF0000) >> 16);
+      _prodName[0] = (char)((_SdCardCID.ProdName1 & 0xFF000000) >> 24);
+      _prodName[4] = (char)(_SdCardCID.ProdName2);
+      _prodName[5] = '\0';
+      return _prodName;
+    };
+
   private:
+    char _prodName[6];
+    char _oemID[3];
+    BSP_SD_CardCID  _SdCardCID;
+    BSP_SD_CardCSD  _SdCardCSD;
     BSP_SD_CardInfo _SdCardInfo;
 
 };
