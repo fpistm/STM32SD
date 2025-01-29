@@ -139,6 +139,14 @@ class Sd2Card {
     /** Return the card type: SD V1, SD V2 or SDHC */
     uint8_t type(void) const;
 
+    /**
+      Return The number of 512 byte data blocks in the card
+      or zero if an error occurs.
+    */
+    uint32_t capacity(void) const
+    {
+      return _SdCardInfo.LogBlockNbr;
+    }
     uint8_t manufacturerID(void) const
     {
       return _SdCardCID.ManufacturerID;
