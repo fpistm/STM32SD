@@ -195,7 +195,7 @@ void    BSP_SD_Detect_MspDeInit(SD_HandleTypeDef *hsd, void *Params);
 void    BSP_SD_Transceiver_MspInit(SD_HandleTypeDef *hsd, void *Params);
 void    BSP_SD_Transceiver_MspDeInit(SD_HandleTypeDef *hsd, void *Params);
 #endif
-
+uint32_t BSP_SD_ErrorCode(void);
 #ifdef __cplusplus
 }
 #endif

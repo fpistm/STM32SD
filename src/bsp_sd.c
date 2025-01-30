@@ -750,4 +750,8 @@ bool BSP_SD_GetCardInfo(HAL_SD_CardInfoTypeDef *CardInfo)
   return (HAL_SD_GetCardInfo(&uSdHandle, CardInfo) == HAL_OK);
 }
 
+uint32_t BSP_SD_ErrorCode(void)
+{
+  return (uSdHandle.State != HAL_SD_STATE_RESET) ? uSdHandle.ErrorCode : 0xFFFFFFFF;
+}
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

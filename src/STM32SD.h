@@ -157,6 +157,11 @@ class SDClass {
     {
       return _fatFs.fatType();
     }
+    /** \return SD card error code. */
+    uint8_t errorCode()
+    {
+      return _card.errorCode();
+    }
     /** \return Pointer to SD card object. */
     Sd2Card *card()
     {
